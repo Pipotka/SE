@@ -21,7 +21,30 @@ public class ProblemBook {
         }
     }
 
-    //public fun generateSecondOperand(firstOperand : Int, operator : Operators) : Int{
-    //
-    //}
+    public fun generateSecondOperand(firstOperand : Int, operator : Operators) : Int{
+        var result = 0
+        when(operator){
+            Operators.PLUS, Operators.MINUS, Operators.MULTIPLY ->{
+                result = Random.nextInt(10, 100)
+            }
+            Operators.DIVIDE ->{
+                do{
+                    result = Random.nextInt(10, 100)
+                } while (!hasDecimalPart((firstOperand.toFloat() / result.toFloat())))
+            }
+            else -> {}
+        }
+        return result
+    }
+
+    public fun isCorrectAnswer(firstOperand : Int,
+                             operator : Operators,
+                             secondOperand : Int,
+                             answer : Int) : Boolean{
+        return operator.performCalculation(firstOperand, secondOperand) == answer
+    }
+
+    private fun hasDecimalPart(number: Float): Boolean {
+        return number % 1 != 0.0f
+    }
 }
